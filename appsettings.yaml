@@ -1,0 +1,17 @@
+ConnectionStrings:
+  CCOS: "Data Source=192.168.211.13:1531/rctccos;User Id=RCTCCOS;Password=qrBts6ltqenrrF0a;"
+  Redis: "192.168.210.27:6379,password=bankbni46,connectTimeout=5000,syncTimeout=5000,abortConnect=false"
+
+AWS:
+  Host: "https://jtlecs-s3.bni.co.id:9021"
+  Namespace: "ns-ccos-nonprod"
+  AccessKey: "AKIA8FC622684EA17DB9"
+  SecretKey: "UV0OK3f4h/G/oR1Mp/oLOWCY6wYvSAjMkLRXgx5X"
+  BucketName:
+    Main: "ccos_dev"
+  CheckSumSHA256: "this-is-checksum"
+
+Report:
+  CronSchedule: "0 0 23 * * ?"
+  CronDevSchedule: "0 * * * * ?"
+  UtcOffset: 7
