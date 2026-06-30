@@ -1,5 +1,4 @@
 ﻿using ClosedXML.Excel;
-using Worker_Report.Data.Models;
 using Worker_Report.Helper;
 using Worker_Report.Repositories.Report;
 using Worker_Report.services.AWSServices;
@@ -31,11 +30,12 @@ namespace Worker_Report.Services.Report
                 return (0, new MemoryStream(), string.Empty);
             }
 
-            var stream = GenerateExcel(data);
+            var excel = GenerateExcel(data);
+            var stream = new MemoryStream(excel);
             var fileName = $"MasterData_{start:yyyyMMdd}_{end:yyyyMMdd}.xlsx";
-            UploadToStorage(stream, SourceSystem.MASTER_DATA, fileName);
+            await UploadToStorage(stream, SourceSystem.MASTER_DATA, fileName);
 
-            return (data.Count(), stream, fileName);
+            return (data.Count(), new MemoryStream(excel), fileName);
         }
 
         public async Task<(int, Stream, string)> GetMasterDataPribadi(DateTime start, DateTime end)
@@ -47,11 +47,12 @@ namespace Worker_Report.Services.Report
                 return (0, new MemoryStream(), string.Empty);
             }
 
-            var stream = GenerateExcel(data);
+            var excel = GenerateExcel(data);
+            var stream = new MemoryStream(excel);
             var fileName = $"MasterDataPribadi_{start:yyyyMMdd}_{end:yyyyMMdd}.xlsx";
-            UploadToStorage(stream, SourceSystem.MASTERDATA_PRIBADI, fileName);
+            await UploadToStorage(stream, SourceSystem.MASTERDATA_PRIBADI, fileName);
 
-            return (data.Count(), stream, fileName);
+            return (data.Count(), new MemoryStream(excel), fileName);
         }
 
         public async Task<(int, Stream, string)> GetAccount(DateTime start, DateTime end)
@@ -63,11 +64,12 @@ namespace Worker_Report.Services.Report
                 return (0, new MemoryStream(), string.Empty);
             }
 
-            var stream = GenerateExcel(data);
+            var excel = GenerateExcel(data);
+            var stream = new MemoryStream(excel);
             var fileName = $"CCAccount_{start:yyyyMMdd}_{end:yyyyMMdd}.xlsx";
-            UploadToStorage(stream, SourceSystem.CC_ACCOUNT, fileName);
+            await UploadToStorage(stream, SourceSystem.CC_ACCOUNT, fileName);
 
-            return (data.Count(), stream, fileName);
+            return (data.Count(), new MemoryStream(excel), fileName);
         }
 
         public async Task<(int, Stream, string)> GetCustomer(DateTime start, DateTime end)
@@ -79,14 +81,15 @@ namespace Worker_Report.Services.Report
                 return (0, new MemoryStream(), string.Empty);
             }
 
-            var stream = GenerateExcel(data);
+            var excel = GenerateExcel(data);
+            var stream = new MemoryStream(excel);
             var fileName = $"Customer_{start:yyyyMMdd}_{end:yyyyMMdd}.xlsx";
-            UploadToStorage(stream, SourceSystem.CUSTOMERS, fileName);
+            await UploadToStorage(stream, SourceSystem.CUSTOMERS, fileName);
 
-            return (data.Count(), stream, fileName);
+            return (data.Count(), new MemoryStream(excel), fileName);
         }
 
-        private MemoryStream GenerateExcel<T>(IEnumerable<T> data)
+        private byte[] GenerateExcel<T>(IEnumerable<T> data)
         {
             var properties = typeof(T).GetProperties();
 
@@ -126,12 +129,11 @@ namespace Worker_Report.Services.Report
 
             var stream = new MemoryStream();
             wb.SaveAs(stream);
-            stream.Position = 0;
 
-            return stream;
+            return stream.ToArray();
         }
 
-        private async void UploadToStorage(Stream stream, SourceSystem source, string fileName, string contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+        private async Task UploadToStorage(Stream stream, SourceSystem source, string fileName, string contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
         {
             var key = S3KeyBuilder.BuildKey(source, fileName);
             await _awsService.UploadStreamAsync(stream, bucketName, key, contentType);

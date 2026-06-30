@@ -1,20 +1,29 @@
 using Worker_Report;
 
-var host = Host.CreateDefaultBuilder(args)
-    .ConfigureAppConfiguration((context, config) =>
-    {
-        config.Sources.Clear();
-        config.AddYamlFile("appsettings.yaml", optional: false, reloadOnChange: true);
+var builder = WebApplication.CreateBuilder(args);
 
-        var env = context.HostingEnvironment.EnvironmentName;
-        config.AddYamlFile($"appsettings.{env}.yaml", optional: true, reloadOnChange: true);
+builder.Configuration.Sources.Clear();
+builder.Configuration.AddYamlFile("appsettings.yaml", optional: false, reloadOnChange: true);
 
-        config.AddEnvironmentVariables();
-    })
-    .ConfigureServices((context, services) =>
-    {
-        services.AddApplicationServices(context.Configuration, context.HostingEnvironment);
-    })
-    .Build();
+var env = builder.Environment.EnvironmentName;
+builder.Configuration.AddYamlFile($"appsettings.{env}.yaml", optional: true, reloadOnChange: true);
 
-await host.RunAsync();
+builder.Configuration.AddEnvironmentVariables();
+
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
+
+builder.Services.AddApplicationServices(
+    builder.Configuration,
+    builder.Environment);
+
+var app = builder.Build();
+app.UseSwagger();
+app.UseSwaggerUI();
+app.UseExceptionHandler();
+app.MapControllers();
+app.Run();
