@@ -1,3 +1,6 @@
+ServerSettings:
+  Port: 8080
+
 ConnectionStrings:
   CCOS: "Data Source=192.168.211.13:1531/rctccos;User Id=RCTCCOS;Password=qrBts6ltqenrrF0a;"
   Redis: "192.168.210.27:6379,password=bankbni46,connectTimeout=5000,syncTimeout=5000,abortConnect=false"

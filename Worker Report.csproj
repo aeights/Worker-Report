@@ -27,4 +27,10 @@
     <ItemGroup>
       <Folder Include="Models\Report\" />
     </ItemGroup>
+
+    <ItemGroup>
+      <None Update="appsettings.yaml">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
 </Project>
