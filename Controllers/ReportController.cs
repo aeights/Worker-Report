@@ -64,5 +64,18 @@ namespace Worker_Report.Controllers
 
             return File(stream,"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",fileName);
         }
+
+        [HttpGet("EntryHMin1")]
+        [Produces("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")]
+        [ProducesResponseType(typeof(FileContentResult), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetEntryHMin1(
+            [FromQuery] DateTime start,
+            [FromQuery] DateTime end
+        )
+        {
+            var (_, stream, fileName) = await _reportService.GetEntryHMin1(start, end);
+
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+        }
     }
 }

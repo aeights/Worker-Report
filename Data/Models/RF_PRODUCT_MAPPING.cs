@@ -37,18 +37,21 @@ public partial class RF_PRODUCT_MAPPING
     [Unicode(false)]
     public string? DETAIL_KARTU { get; set; }
 
-    [Column(TypeName = "NUMBER(38)")]
-    public decimal? ORG { get; set; }
+    [StringLength(10)]
+    [Unicode(false)]
+    public string? ORG { get; set; }
 
-    [Column(TypeName = "NUMBER(38)")]
-    public decimal? LOGO { get; set; }
+    [StringLength(10)]
+    [Unicode(false)]
+    public string? LOGO { get; set; }
 
     [StringLength(50)]
     [Unicode(false)]
     public string? PARENT_TYPE { get; set; }
 
-    [Column(TypeName = "NUMBER(38)")]
-    public decimal? BIN_NUMBER { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string? BIN_NUMBER { get; set; }
 
     [StringLength(50)]
     [Unicode(false)]
@@ -58,28 +61,31 @@ public partial class RF_PRODUCT_MAPPING
     [Unicode(false)]
     public string? MAX_CREDIT_LINE { get; set; }
 
-    [Column(TypeName = "NUMBER(38)")]
-    public decimal? CYCLE { get; set; }
-
-    [Column(TypeName = "NUMBER(38)")]
-    public decimal? EXPIRED_CARD { get; set; }
-
-    [Column(TypeName = "NUMBER(38)")]
-    public decimal? PRODUCT_CODE { get; set; }
-
-    [Column(TypeName = "NUMBER(38)")]
-    public decimal? PARTNER_CODE { get; set; }
-
-    [Column(TypeName = "NUMBER(38)")]
-    public decimal? PRINCIPAL_CODE { get; set; }
-
-    [Column(TypeName = "NUMBER(38)")]
-    public decimal? VARIAN_CODE { get; set; }
-
-    [Column(TypeName = "NUMBER(38)")]
-    public decimal? FAMILY_CODE { get; set; }
-
-    [StringLength(10)]
+    [StringLength(50)]
     [Unicode(false)]
-    public string? LOGO_NEW { get; set; }
+    public string? CYCLE { get; set; }
+
+    [StringLength(50)]
+    [Unicode(false)]
+    public string? EXPIRED_CARD { get; set; }
+
+    [StringLength(50)]
+    [Unicode(false)]
+    public string? PRODUCT_CODE { get; set; }
+
+    [StringLength(50)]
+    [Unicode(false)]
+    public string? PARTNER_CODE { get; set; }
+
+    [StringLength(50)]
+    [Unicode(false)]
+    public string? PRINCIPAL_CODE { get; set; }
+
+    [StringLength(30)]
+    [Unicode(false)]
+    public string? VARIAN_CODE { get; set; }
+
+    [StringLength(50)]
+    [Unicode(false)]
+    public string? FAMILY_CODE { get; set; }
 }

@@ -208,9 +208,6 @@ public partial class MASTERDATA_OPERATOR
     public int? SLI_QCCHECKER { get; set; }
 
     [Precision(10)]
-    public int? SLI_QCAPPROVAL { get; set; }
-
-    [Precision(10)]
     public int? SLI_VER { get; set; }
 
     [Precision(10)]

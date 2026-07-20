@@ -16,7 +16,7 @@ public partial class T_FILDOKUMEN
     public int? T_FILING_FK { get; set; }
 
     [Precision(10)]
-    public int? RF_PSDOKUMEN_FK { get; set; }
+    public int? RF_PSDOCUMENT_FK { get; set; }
 
     [StringLength(1)]
     [Unicode(false)]

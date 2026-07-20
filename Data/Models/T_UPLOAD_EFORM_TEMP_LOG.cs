@@ -17,7 +17,7 @@ public partial class T_UPLOAD_EFORM_TEMP_LOG
 
     [StringLength(255)]
     [Unicode(false)]
-    public string APPLICATION_ID { get; set; } = null!;
+    public string? APPLICATION_ID { get; set; }
 
     [StringLength(255)]
     [Unicode(false)]
@@ -43,4 +43,12 @@ public partial class T_UPLOAD_EFORM_TEMP_LOG
     [Key]
     [Column(TypeName = "NUMBER(38)")]
     public decimal ID { get; set; }
+
+    [StringLength(100)]
+    [Unicode(false)]
+    public string? IDEAS_DECISION_2 { get; set; }
+
+    [StringLength(2000)]
+    [Unicode(false)]
+    public string? DEVELOPER_ERROR_MESSAGE { get; set; }
 }

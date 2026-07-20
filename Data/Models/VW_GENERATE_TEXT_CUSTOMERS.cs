@@ -69,7 +69,7 @@ public partial class VW_GENERATE_TEXT_CUSTOMERS
     [Unicode(false)]
     public string? NC_01_FOREIGN_IND { get; set; }
 
-    [StringLength(1)]
+    [StringLength(4)]
     [Unicode(false)]
     public string? NC_01_REGULER_CUST { get; set; }
 
@@ -101,7 +101,7 @@ public partial class VW_GENERATE_TEXT_CUSTOMERS
     [Unicode(false)]
     public string? NC_04_SMSA { get; set; }
 
-    [StringLength(1)]
+    [StringLength(28)]
     [Unicode(false)]
     public string? NC_04_CENSUS { get; set; }
 
@@ -109,7 +109,7 @@ public partial class VW_GENERATE_TEXT_CUSTOMERS
     [Unicode(false)]
     public string? NC_05_CITY { get; set; }
 
-    [StringLength(8)]
+    [StringLength(2)]
     [Unicode(false)]
     public string? NC_05_STATE { get; set; }
 
@@ -117,7 +117,7 @@ public partial class VW_GENERATE_TEXT_CUSTOMERS
     [Unicode(false)]
     public string? NC_05_ZIP_CODE { get; set; }
 
-    [StringLength(30)]
+    [StringLength(120)]
     [Unicode(false)]
     public string? NC_06_CO_OWNER { get; set; }
 
@@ -145,7 +145,7 @@ public partial class VW_GENERATE_TEXT_CUSTOMERS
     [Unicode(false)]
     public string? NC_07_BIRTH_DATE { get; set; }
 
-    [StringLength(15)]
+    [StringLength(60)]
     [Unicode(false)]
     public string? NC_07_CO_TAX_ID_NBR { get; set; }
 
@@ -153,7 +153,7 @@ public partial class VW_GENERATE_TEXT_CUSTOMERS
     [Unicode(false)]
     public string? NC_07_CO_TAX_ID_FLAG { get; set; }
 
-    [StringLength(8)]
+    [StringLength(1)]
     [Unicode(false)]
     public string? NC_07_CO_BIRTH_DATE { get; set; }
 
@@ -161,7 +161,7 @@ public partial class VW_GENERATE_TEXT_CUSTOMERS
     [Unicode(false)]
     public string? NC_08_EMPLOYER { get; set; }
 
-    [StringLength(72)]
+    [StringLength(60)]
     [Unicode(false)]
     public string? NC_08_WORK_PHONE { get; set; }
 
@@ -337,7 +337,7 @@ public partial class VW_GENERATE_TEXT_CUSTOMERS
     [Unicode(false)]
     public string? NC_20_ADDL_CITY { get; set; }
 
-    [StringLength(1)]
+    [StringLength(4)]
     [Unicode(false)]
     public string? NC_20_ADDL_USAGE { get; set; }
 
@@ -361,7 +361,6 @@ public partial class VW_GENERATE_TEXT_CUSTOMERS
     [Unicode(false)]
     public string? NC_21_USR_DEF2 { get; set; }
 
-    [StringLength(8)]
     [Unicode(false)]
     public string? NC_21_SUBMIT_DTE { get; set; }
 
@@ -664,4 +663,8 @@ public partial class VW_GENERATE_TEXT_CUSTOMERS
     [StringLength(15)]
     [Unicode(false)]
     public string? NC_23_CRLINE_USG { get; set; }
+
+    [StringLength(1)]
+    [Unicode(false)]
+    public string? IS_INSTANT { get; set; }
 }

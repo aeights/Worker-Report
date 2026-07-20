@@ -6,23 +6,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Worker_Report.Data.Models;
 
-public partial class T_FILMEMO
+public partial class ORG_NEW
 {
     [Key]
     [Precision(10)]
     public int ID { get; set; }
 
-    [Precision(10)]
-    public int? T_FILING_FK { get; set; }
-
-    [StringLength(255)]
+    [StringLength(3)]
     [Unicode(false)]
-    public string MEMO { get; set; } = null!;
+    public string? ORG { get; set; }
 
-    [StringLength(50)]
+    [StringLength(25)]
     [Unicode(false)]
-    public string OPERATOR { get; set; } = null!;
-
-    [Precision(6)]
-    public DateTime? WAKTU { get; set; }
+    public string? ORGNAME { get; set; }
 }

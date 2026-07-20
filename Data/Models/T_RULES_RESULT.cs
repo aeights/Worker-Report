@@ -32,4 +32,10 @@ public partial class T_RULES_RESULT
     [StringLength(20)]
     [Unicode(false)]
     public string? APPID { get; set; }
+
+    [Column(TypeName = "NUMBER(1)")]
+    public bool? IS_CONTAINS_MATRIX { get; set; }
+
+    [Column(TypeName = "NUMBER(1)")]
+    public bool? IS_CHECKING_COMPLETE { get; set; }
 }

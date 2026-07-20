@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Worker_Report.Data;
 using Worker_Report.Data.Models;
+using Worker_Report.Models.Report;
 
 namespace Worker_Report.Repositories.Report
 {
@@ -51,6 +52,96 @@ namespace Worker_Report.Repositories.Report
                                 && c.WAKTUCUSTOMER <= end
                             select c)
                             .ToListAsync();
+        }
+
+        public async Task<IEnumerable<CDRViewModel>> GetEntryHMin1(DateTime start, DateTime end)
+        {
+            return await (from m in _context.MASTER_DATA
+                        join p in _context.MASTERDATA_PRIBADI
+                            on m.MASTERDATA_ID equals p.MASTERDATA_FK
+                        join j in _context.MASTERDATA_PEKERJAAN
+                            on m.MASTERDATA_ID equals j.MASTERDATA_FK
+                        join s in _context.MASTERDATA_SYSTEM
+                            on m.MASTERDATA_ID equals s.MASTERDATA_FK
+                        join d in _context.MASTERDATA_DARURAT
+                            on m.MASTERDATA_ID equals d.MASTERDATA_FK
+                        join o in _context.MASTERDATA_OPERATOR
+                            on m.MASTERDATA_ID equals o.MASTERDATA_FK
+                        join misc in _context.MASTERDATA_MISC
+                            on m.MASTERDATA_ID equals misc.MASTERDATA_FK
+                        where o.WAKTUDE >= start
+                            && o.WAKTUDE <= end
+                        select new CDRViewModel
+                        {
+                            MasterData = m,
+                            MasterDataPribadi = p,
+                            MasterDataPekerjaan = j,
+                            MasterDataSystem = s,
+                            MasterDataDarurat = d,
+                            MasterDataOperator = o,
+                            MasterDataMisc = misc
+                        })
+                        .ToListAsync();
+        }
+
+        public async Task<IEnumerable<CDRViewModel>> GetEntryHMin20(DateTime start, DateTime end)
+        {
+            return await(from m in _context.MASTER_DATA
+                        join p in _context.MASTERDATA_PRIBADI
+                            on m.MASTERDATA_ID equals p.MASTERDATA_FK
+                        join j in _context.MASTERDATA_PEKERJAAN
+                            on m.MASTERDATA_ID equals j.MASTERDATA_FK
+                        join s in _context.MASTERDATA_SYSTEM
+                            on m.MASTERDATA_ID equals s.MASTERDATA_FK
+                        join d in _context.MASTERDATA_DARURAT
+                            on m.MASTERDATA_ID equals d.MASTERDATA_FK
+                        join o in _context.MASTERDATA_OPERATOR
+                            on m.MASTERDATA_ID equals o.MASTERDATA_FK
+                        join misc in _context.MASTERDATA_MISC
+                            on m.MASTERDATA_ID equals misc.MASTERDATA_FK
+                        where o.WAKTUDE >= start
+                            && o.WAKTUDE <= end
+                        select new CDRViewModel
+                        {
+                            MasterData = m,
+                            MasterDataPribadi = p,
+                            MasterDataPekerjaan = j,
+                            MasterDataSystem = s,
+                            MasterDataDarurat = d,
+                            MasterDataOperator = o,
+                            MasterDataMisc = misc
+                        })
+                    .ToListAsync();
+        }
+
+        public async Task<IEnumerable<CDRViewModel>> GetDecisioinHMin1(DateTime start, DateTime end)
+        {
+            return await(from m in _context.MASTER_DATA
+                        join p in _context.MASTERDATA_PRIBADI
+                            on m.MASTERDATA_ID equals p.MASTERDATA_FK
+                        join j in _context.MASTERDATA_PEKERJAAN
+                            on m.MASTERDATA_ID equals j.MASTERDATA_FK
+                        join s in _context.MASTERDATA_SYSTEM
+                            on m.MASTERDATA_ID equals s.MASTERDATA_FK
+                        join d in _context.MASTERDATA_DARURAT
+                            on m.MASTERDATA_ID equals d.MASTERDATA_FK
+                        join o in _context.MASTERDATA_OPERATOR
+                            on m.MASTERDATA_ID equals o.MASTERDATA_FK
+                        join misc in _context.MASTERDATA_MISC
+                            on m.MASTERDATA_ID equals misc.MASTERDATA_FK
+                        where o.WAKTUDECISION >= start
+                            && o.WAKTUDECISION <= end
+                        select new CDRViewModel
+                        {
+                            MasterData = m,
+                            MasterDataPribadi = p,
+                            MasterDataPekerjaan = j,
+                            MasterDataSystem = s,
+                            MasterDataDarurat = d,
+                            MasterDataOperator = o,
+                            MasterDataMisc = misc
+                        })
+                    .ToListAsync();
         }
     }
 }

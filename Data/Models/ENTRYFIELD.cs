@@ -37,4 +37,8 @@ public partial class ENTRYFIELD
     [StringLength(10)]
     [Unicode(false)]
     public string? KODEINPUTTYPE { get; set; }
+
+    [StringLength(20)]
+    [Unicode(false)]
+    public string? ENTRY_TYPE { get; set; }
 }

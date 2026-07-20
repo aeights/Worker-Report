@@ -43,4 +43,74 @@ public partial class T_SCREENING_INQUIRY
     [StringLength(50)]
     [Unicode(false)]
     public string? NPWP { get; set; }
+
+    [Precision(6)]
+    public DateTime? TANGGALLAHIR { get; set; }
+
+    [StringLength(100)]
+    [Unicode(false)]
+    public string? TEMPATLAHIR { get; set; }
+
+    [StringLength(100)]
+    [Unicode(false)]
+    public string? NAMAIBU { get; set; }
+
+    [Column(TypeName = "NUMBER(38)")]
+    public decimal? MAKSKREDIT { get; set; }
+
+    [StringLength(10)]
+    [Unicode(false)]
+    public string? SEKTOREKONOMI { get; set; }
+
+    [StringLength(100)]
+    [Unicode(false)]
+    public string? ALAMAT { get; set; }
+
+    [StringLength(50)]
+    [Unicode(false)]
+    public string? KOTA { get; set; }
+
+    [StringLength(100)]
+    [Unicode(false)]
+    public string? PROVINSI { get; set; }
+
+    [StringLength(20)]
+    [Unicode(false)]
+    public string? KODEPOS { get; set; }
+
+    [StringLength(2)]
+    [Unicode(false)]
+    public string? JENISKELAMIN { get; set; }
+
+    [StringLength(10)]
+    [Unicode(false)]
+    public string? GROUPPRODUCT { get; set; }
+
+    [StringLength(100)]
+    [Unicode(false)]
+    public string? SCORINGSTAGE { get; set; }
+
+    [StringLength(20)]
+    [Unicode(false)]
+    public string? NOKK { get; set; }
+
+    [StringLength(25)]
+    [Unicode(false)]
+    public string? CBASID { get; set; }
+
+    [StringLength(20)]
+    [Unicode(false)]
+    public string? WORKFLOWCODE { get; set; }
+
+    [StringLength(20)]
+    [Unicode(false)]
+    public string? INCOMETYPE { get; set; }
+
+    [StringLength(20)]
+    [Unicode(false)]
+    public string? PHONENUMBER { get; set; }
+
+    [StringLength(20)]
+    [Unicode(false)]
+    public string? CHANNELID { get; set; }
 }

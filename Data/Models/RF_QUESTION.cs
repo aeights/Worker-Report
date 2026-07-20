@@ -55,6 +55,21 @@ public partial class RF_QUESTION
     [Precision(6)]
     public DateTime UPDATED_AT { get; set; }
 
+    [StringLength(500)]
+    [Unicode(false)]
+    public string? ADDITIONAL_FIELD_LABEL { get; set; }
+
+    [StringLength(30)]
+    [Unicode(false)]
+    public string? ADDITIONAL_FIELD_TYPE { get; set; }
+
+    [Column(TypeName = "NUMBER(1)")]
+    public bool? ADDITIONAL_FIELD_REQUIRED { get; set; }
+
+    [StringLength(100)]
+    [Unicode(false)]
+    public string? ADDITIONAL_FIELD_CONDITION_VALUE { get; set; }
+
     [InverseProperty("PARENT_QUESTION")]
     public virtual ICollection<RF_QUESTION> InversePARENT_QUESTION { get; set; } = new List<RF_QUESTION>();
 

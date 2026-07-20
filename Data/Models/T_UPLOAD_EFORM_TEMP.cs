@@ -611,4 +611,8 @@ public partial class T_UPLOAD_EFORM_TEMP
     [StringLength(100)]
     [Unicode(false)]
     public string? TITLE { get; set; }
+
+    [StringLength(25)]
+    [Unicode(false)]
+    public string? APP_ID_ORIGINAL { get; set; }
 }

@@ -16,7 +16,7 @@ public partial class MEMO
     public int? MASTERDATA_FK { get; set; }
 
     [Column("MEMO")]
-    [StringLength(200)]
+    [StringLength(255)]
     [Unicode(false)]
     public string? MEMO1 { get; set; }
 

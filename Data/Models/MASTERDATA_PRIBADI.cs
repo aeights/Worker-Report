@@ -31,7 +31,7 @@ public partial class MASTERDATA_PRIBADI
     [Unicode(false)]
     public string? WARGANEGARA { get; set; }
 
-    [StringLength(20)]
+    [StringLength(50)]
     [Unicode(false)]
     public string? TEMPATLAHIR { get; set; }
 

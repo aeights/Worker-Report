@@ -38,7 +38,7 @@ public partial class T_FILING
     [Column(TypeName = "DATE")]
     public DateTime? TGLLAHIR { get; set; }
 
-    [StringLength(15)]
+    [StringLength(100)]
     [Unicode(false)]
     public string OPERATOR { get; set; } = null!;
 
@@ -82,7 +82,7 @@ public partial class T_FILING
     [Unicode(false)]
     public string FLAGPREEMBOSSED { get; set; } = null!;
 
-    [StringLength(3)]
+    [StringLength(10)]
     [Unicode(false)]
-    public string REASONDECLINE { get; set; } = null!;
+    public string? REASONDECLINE { get; set; }
 }

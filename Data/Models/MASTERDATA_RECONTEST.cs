@@ -20,10 +20,14 @@ public partial class MASTERDATA_RECONTEST
     [Unicode(false)]
     public string? RECONTESTREASON { get; set; }
 
-    [StringLength(20)]
+    [StringLength(100)]
     [Unicode(false)]
     public string? RECONTESTOPERATOR { get; set; }
 
     [Precision(6)]
     public DateTime? RECONTESTTIME { get; set; }
+
+    [ForeignKey("MASTERDATA_FK")]
+    [InverseProperty("MASTERDATA_RECONTEST")]
+    public virtual MASTER_DATA? MASTERDATA_FKNavigation { get; set; }
 }

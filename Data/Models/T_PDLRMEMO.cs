@@ -18,7 +18,7 @@ public partial class T_PDLRMEMO
     [Column(TypeName = "NUMBER")]
     public decimal PDLRCRITERIA_FK { get; set; }
 
-    [StringLength(250)]
+    [StringLength(1000)]
     [Unicode(false)]
     public string? PDLRMEMO { get; set; }
 

@@ -880,4 +880,8 @@ public partial class T_GENERATE_PTCU_CARDHOLDER
     [StringLength(1)]
     [Unicode(false)]
     public string IS_GENERATE { get; set; } = null!;
+
+    [StringLength(20)]
+    [Unicode(false)]
+    public string? IS_INSTANT { get; set; }
 }

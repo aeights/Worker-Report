@@ -24,14 +24,6 @@ public partial class RF_SUB_SECTION
     [Unicode(false)]
     public string NAME { get; set; } = null!;
 
-    [StringLength(100)]
-    [Unicode(false)]
-    public string? CONDITION_FIELD { get; set; }
-
-    [StringLength(100)]
-    [Unicode(false)]
-    public string? CONDITION_VALUE { get; set; }
-
     [Precision(10)]
     public int ORDER_NUMBER { get; set; }
 
@@ -47,6 +39,9 @@ public partial class RF_SUB_SECTION
 
     [InverseProperty("SUB_SECTION")]
     public virtual ICollection<RF_QUESTION> RF_QUESTION { get; set; } = new List<RF_QUESTION>();
+
+    [InverseProperty("SUB_SECTION")]
+    public virtual ICollection<RF_SUB_SECTION_CONDITION> RF_SUB_SECTION_CONDITION { get; set; } = new List<RF_SUB_SECTION_CONDITION>();
 
     [ForeignKey("SECTION_ID")]
     [InverseProperty("RF_SUB_SECTION")]

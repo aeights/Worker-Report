@@ -57,7 +57,7 @@ public partial class VW_GENERATE_TEXT_CARDHOLDER
     [Unicode(false)]
     public string? M_SOURCE_CODE { get; set; }
 
-    [StringLength(20)]
+    [StringLength(68)]
     [Unicode(false)]
     public string? NH_01_ALPHA_KEY { get; set; }
 
@@ -365,7 +365,7 @@ public partial class VW_GENERATE_TEXT_CARDHOLDER
     [Unicode(false)]
     public string? NH_09_EMBOSS_RQTYPE_3 { get; set; }
 
-    [StringLength(104)]
+    [StringLength(26)]
     [Unicode(false)]
     public string? NH_10_EMBOSS_NAME_4 { get; set; }
 
@@ -401,7 +401,7 @@ public partial class VW_GENERATE_TEXT_CARDHOLDER
     [Unicode(false)]
     public string? NH_11_USER_ACCT { get; set; }
 
-    [StringLength(8)]
+    [StringLength(10)]
     [Unicode(false)]
     public string? NH_11_PHOTO_CODE { get; set; }
 
@@ -777,7 +777,7 @@ public partial class VW_GENERATE_TEXT_CARDHOLDER
     [Unicode(false)]
     public string? NH_26_POSTING_ORGN { get; set; }
 
-    [StringLength(2)]
+    [StringLength(3)]
     [Unicode(false)]
     public string? NH_26_POSTING_TYPE { get; set; }
 
@@ -848,4 +848,8 @@ public partial class VW_GENERATE_TEXT_CARDHOLDER
     [StringLength(1)]
     [Unicode(false)]
     public string? NH_88_INT_FREE_PERIOD { get; set; }
+
+    [StringLength(1)]
+    [Unicode(false)]
+    public string? IS_INSTANT { get; set; }
 }

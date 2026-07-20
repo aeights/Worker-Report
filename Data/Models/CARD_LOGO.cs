@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Worker_Report.Data.Models;
 
-public partial class LOGO
+public partial class CARD_LOGO
 {
     [Key]
     [Precision(10)]
@@ -18,10 +18,9 @@ public partial class LOGO
     [Precision(10)]
     public int? PARAMETERSCORING_FK { get; set; }
 
-    [Column("LOGO")]
     [StringLength(3)]
     [Unicode(false)]
-    public string? LOGO1 { get; set; }
+    public string? LOGO { get; set; }
 
     [StringLength(30)]
     [Unicode(false)]
@@ -88,4 +87,23 @@ public partial class LOGO
     [StringLength(200)]
     [Unicode(false)]
     public string? AFFCODE3 { get; set; }
+
+    [StringLength(100)]
+    [Unicode(false)]
+    public string? VARIAN { get; set; }
+
+    [StringLength(100)]
+    [Unicode(false)]
+    public string? NAMAPRINCIPAL { get; set; }
+
+    [StringLength(100)]
+    [Unicode(false)]
+    public string? PARTNERCOBRAND { get; set; }
+
+    [StringLength(100)]
+    [Unicode(false)]
+    public string? JENISPRODUK { get; set; }
+
+    [Column(TypeName = "NUMBER(38)")]
+    public decimal? ISJAMDEPO { get; set; }
 }

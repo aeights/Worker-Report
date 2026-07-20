@@ -21,7 +21,7 @@ public partial class MASTERDATA_STATUS
     [Precision(5)]
     public short? ORDER_NO { get; set; }
 
-    [StringLength(4)]
+    [StringLength(20)]
     [Unicode(false)]
     public string? STATUS { get; set; }
 
@@ -31,4 +31,8 @@ public partial class MASTERDATA_STATUS
     [StringLength(100)]
     [Unicode(false)]
     public string? CREATED_BY { get; set; }
+
+    [ForeignKey("MASTERDATA_FK")]
+    [InverseProperty("MASTERDATA_STATUS")]
+    public virtual MASTER_DATA MASTERDATA_FKNavigation { get; set; } = null!;
 }

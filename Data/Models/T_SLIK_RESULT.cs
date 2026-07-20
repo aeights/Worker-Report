@@ -46,4 +46,36 @@ public partial class T_SLIK_RESULT
     [StringLength(255)]
     [Unicode(false)]
     public string? SLIKRESULT { get; set; }
+
+    [StringLength(100)]
+    [Unicode(false)]
+    public string? KREDIT_ID { get; set; }
+
+    [StringLength(100)]
+    [Unicode(false)]
+    public string? NO_AKAD_AWAL { get; set; }
+
+    [StringLength(100)]
+    [Unicode(false)]
+    public string? NAMA_DEBITUR { get; set; }
+
+    [StringLength(100)]
+    [Unicode(false)]
+    public string? SLIK_DECISION { get; set; }
+
+    [StringLength(100)]
+    [Unicode(false)]
+    public string? SLIK_RULE_NAME { get; set; }
+
+    [StringLength(100)]
+    [Unicode(false)]
+    public string? RULE_NAME { get; set; }
+
+    [StringLength(100)]
+    [Unicode(false)]
+    public string? RULE_VALUE { get; set; }
+
+    [StringLength(100)]
+    [Unicode(false)]
+    public string? RULE_DESCRIPTION { get; set; }
 }

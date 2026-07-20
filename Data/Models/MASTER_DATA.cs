@@ -62,7 +62,7 @@ public partial class MASTER_DATA
     [Unicode(false)]
     public string? FLAGDISTRIBUSI { get; set; }
 
-    [StringLength(3)]
+    [StringLength(10)]
     [Unicode(false)]
     public string? DECLINECODE { get; set; }
 
@@ -244,4 +244,11 @@ public partial class MASTER_DATA
     [StringLength(50)]
     [Unicode(false)]
     public string? CREATED_BY { get; set; }
+
+    [StringLength(10)]
+    [Unicode(false)]
+    public string? IDEAS_DECISION { get; set; }
+
+    [Column(TypeName = "NUMBER(38)")]
+    public decimal? ISRECONTEST { get; set; }
 }

@@ -55,7 +55,7 @@ public partial class MASTERDATA_DARURAT
     [Unicode(false)]
     public string? KOWILTLPDARURAT { get; set; }
 
-    [StringLength(10)]
+    [StringLength(14)]
     [Unicode(false)]
     public string? NOTLPDARURAT { get; set; }
 

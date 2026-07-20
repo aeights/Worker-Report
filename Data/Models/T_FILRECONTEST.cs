@@ -15,7 +15,7 @@ public partial class T_FILRECONTEST
     [Precision(10)]
     public int? T_FILING_FK { get; set; }
 
-    [StringLength(15)]
+    [StringLength(50)]
     [Unicode(false)]
     public string NAMARECONTEST { get; set; } = null!;
 

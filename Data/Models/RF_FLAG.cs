@@ -6,46 +6,43 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Worker_Report.Data.Models;
 
-public partial class T_DECISION_PRESCREENING
+public partial class RF_FLAG
 {
     [Key]
-    [Precision(19)]
-    public long ID { get; set; }
+    [Precision(10)]
+    public int ID { get; set; }
 
-    [StringLength(20)]
+    [StringLength(100)]
     [Unicode(false)]
-    public string APP_NUMBER { get; set; } = null!;
-
-    [StringLength(40)]
-    [Unicode(false)]
-    public string DECISION { get; set; } = null!;
-
-    [Precision(19)]
-    public long SUBMISSION_ID { get; set; }
+    public string FLAG_TYPE { get; set; } = null!;
 
     [StringLength(50)]
     [Unicode(false)]
-    public string CURRENT_TRACK_CODE { get; set; } = null!;
+    public string FLAG_CODE { get; set; } = null!;
 
-    [StringLength(500)]
+    [StringLength(200)]
     [Unicode(false)]
-    public string? REJECT_REASON_CODE { get; set; }
+    public string FLAG_NAME { get; set; } = null!;
 
-    [Precision(6)]
+    [Required]
+    [Column(TypeName = "NUMBER(1)")]
+    public bool? IS_ACTIVE { get; set; }
+
+    [Column(TypeName = "DATE")]
     public DateTime? CREATED_AT { get; set; }
 
     [StringLength(100)]
     [Unicode(false)]
     public string? CREATED_BY { get; set; }
 
-    [Precision(6)]
+    [Column(TypeName = "DATE")]
     public DateTime? UPDATED_AT { get; set; }
 
     [StringLength(100)]
     [Unicode(false)]
     public string? UPDATED_BY { get; set; }
 
-    [StringLength(1)]
+    [StringLength(100)]
     [Unicode(false)]
-    public string IS_UPDATE_PRESCREENED { get; set; } = null!;
+    public string? FLAG_TABLE { get; set; }
 }

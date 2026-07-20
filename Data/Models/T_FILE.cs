@@ -15,7 +15,7 @@ public partial class T_FILE
     [Precision(6)]
     public DateTime? CREATED_AT { get; set; }
 
-    [StringLength(20)]
+    [StringLength(50)]
     [Unicode(false)]
     public string? FILE_NAME { get; set; }
 

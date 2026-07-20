@@ -22,9 +22,13 @@ public partial class DBContext : DbContext
 
     public virtual DbSet<CARD> CARD { get; set; }
 
+    public virtual DbSet<CARDCOUNTER> CARDCOUNTER { get; set; }
+
     public virtual DbSet<CARD_COUNTER> CARD_COUNTER { get; set; }
 
     public virtual DbSet<CARD_HISTORY> CARD_HISTORY { get; set; }
+
+    public virtual DbSet<CARD_LOGO> CARD_LOGO { get; set; }
 
     public virtual DbSet<CARD_MASTER> CARD_MASTER { get; set; }
 
@@ -56,6 +60,8 @@ public partial class DBContext : DbContext
 
     public virtual DbSet<GENERATE_PTCU_LOG> GENERATE_PTCU_LOG { get; set; }
 
+    public virtual DbSet<GFF_PRESCREENING_RESULT> GFF_PRESCREENING_RESULT { get; set; }
+
     public virtual DbSet<HARI_LIBUR> HARI_LIBUR { get; set; }
 
     public virtual DbSet<JENIS_PERUSAHAAN> JENIS_PERUSAHAAN { get; set; }
@@ -67,6 +73,8 @@ public partial class DBContext : DbContext
     public virtual DbSet<KRITERIA_PROSES> KRITERIA_PROSES { get; set; }
 
     public virtual DbSet<LOGO> LOGO { get; set; }
+
+    public virtual DbSet<LOGO_OLD> LOGO_OLD { get; set; }
 
     public virtual DbSet<MASTERDATA_DARURAT> MASTERDATA_DARURAT { get; set; }
 
@@ -112,6 +120,8 @@ public partial class DBContext : DbContext
 
     public virtual DbSet<ORG> ORG { get; set; }
 
+    public virtual DbSet<ORG_NEW> ORG_NEW { get; set; }
+
     public virtual DbSet<PARAMETERLOGOFIELD> PARAMETERLOGOFIELD { get; set; }
 
     public virtual DbSet<PARAMETERSCORING> PARAMETERSCORING { get; set; }
@@ -154,11 +164,15 @@ public partial class DBContext : DbContext
 
     public virtual DbSet<RF_DECLINE_PREFIX_CODE> RF_DECLINE_PREFIX_CODE { get; set; }
 
+    public virtual DbSet<RF_FLAG> RF_FLAG { get; set; }
+
     public virtual DbSet<RF_GARUDA_CITY_CODE> RF_GARUDA_CITY_CODE { get; set; }
 
     public virtual DbSet<RF_GROUP_STAGELIST> RF_GROUP_STAGELIST { get; set; }
 
     public virtual DbSet<RF_HUB_STATUS_MAPPING> RF_HUB_STATUS_MAPPING { get; set; }
+
+    public virtual DbSet<RF_JENIS_KARTU> RF_JENIS_KARTU { get; set; }
 
     public virtual DbSet<RF_JENIS_PRODUK> RF_JENIS_PRODUK { get; set; }
 
@@ -193,6 +207,8 @@ public partial class DBContext : DbContext
     public virtual DbSet<RF_STATUS_PERKAWINAN> RF_STATUS_PERKAWINAN { get; set; }
 
     public virtual DbSet<RF_SUB_SECTION> RF_SUB_SECTION { get; set; }
+
+    public virtual DbSet<RF_SUB_SECTION_CONDITION> RF_SUB_SECTION_CONDITION { get; set; }
 
     public virtual DbSet<RF_TIERING_MAPPING> RF_TIERING_MAPPING { get; set; }
 
@@ -335,6 +351,14 @@ public partial class DBContext : DbContext
             entity.Property(e => e.BIN_NUMBER).IsFixedLength();
         });
 
+        modelBuilder.Entity<CARD_LOGO>(entity =>
+        {
+            entity.HasKey(e => e.ID).HasName("PK_LOGO_CARD");
+
+            entity.Property(e => e.ID).ValueGeneratedNever();
+            entity.Property(e => e.ISJAMDEPO).HasDefaultValueSql("0");
+        });
+
         modelBuilder.Entity<CHANGEDLOGO>(entity =>
         {
             entity.Property(e => e.CHANGEDLOGO_ID).ValueGeneratedNever();
@@ -364,6 +388,11 @@ public partial class DBContext : DbContext
             entity.Property(e => e.ID).ValueGeneratedNever();
         });
 
+        modelBuilder.Entity<GFF_PRESCREENING_RESULT>(entity =>
+        {
+            entity.Property(e => e.ID).ValueGeneratedOnAdd();
+        });
+
         modelBuilder.Entity<JENIS_PERUSAHAAN>(entity =>
         {
             entity.Property(e => e.ID).ValueGeneratedNever();
@@ -389,6 +418,11 @@ public partial class DBContext : DbContext
 
         modelBuilder.Entity<LOGO>(entity =>
         {
+            entity.HasKey(e => e.ID).HasName("PK_LOGO_NEW");
+        });
+
+        modelBuilder.Entity<LOGO_OLD>(entity =>
+        {
             entity.Property(e => e.ISJAMDEPO).HasDefaultValueSql("0 ");
         });
 
@@ -409,6 +443,10 @@ public partial class DBContext : DbContext
             entity.Property(e => e.STATUS)
                 .HasDefaultValueSql("NULL")
                 .IsFixedLength();
+
+            entity.HasOne(d => d.MASTERDATA_FKNavigation).WithMany(p => p.MASTERDATA_KORESPONDEN)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_MASTERDATA_KORESPONDEN");
         });
 
         modelBuilder.Entity<MASTERDATA_OPERATOR>(entity =>
@@ -443,9 +481,6 @@ public partial class DBContext : DbContext
             entity.Property(e => e.SLI_PS)
                 .ValueGeneratedOnAdd()
                 .HasDefaultValueSql("0");
-            entity.Property(e => e.SLI_QCAPPROVAL)
-                .ValueGeneratedOnAdd()
-                .HasDefaultValueSql("0");
             entity.Property(e => e.SLI_QCCHECKER)
                 .ValueGeneratedOnAdd()
                 .HasDefaultValueSql("0");
@@ -461,6 +496,8 @@ public partial class DBContext : DbContext
             entity.Property(e => e.SLI_VER)
                 .ValueGeneratedOnAdd()
                 .HasDefaultValueSql("0");
+
+            entity.HasOne(d => d.MASTERDATA_FKNavigation).WithMany(p => p.MASTERDATA_OPERATOR).HasConstraintName("FK_OPERATOR_MASTER_DATA");
         });
 
         modelBuilder.Entity<MASTERDATA_OPERATORERROR>(entity =>
@@ -507,6 +544,10 @@ public partial class DBContext : DbContext
 
         modelBuilder.Entity<MASTERDATA_QUESTION>(entity =>
         {
+            entity.HasOne(d => d.MASTERDATA_FKNavigation).WithMany(p => p.MASTERDATA_QUESTION)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_MDQUESTION_MASTERDATA");
+
             entity.HasOne(d => d.QUESTION).WithMany(p => p.MASTERDATA_QUESTION)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_MDQUESTION_RFQUESTION");
@@ -524,12 +565,20 @@ public partial class DBContext : DbContext
             entity.Property(e => e.RECONTESTOPERATOR).HasDefaultValueSql("NULL");
             entity.Property(e => e.RECONTESTREASON).HasDefaultValueSql("NULL");
             entity.Property(e => e.RECONTESTTIME).HasDefaultValueSql("NULL");
+
+            entity.HasOne(d => d.MASTERDATA_FKNavigation).WithMany(p => p.MASTERDATA_RECONTEST)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_MASTERDATA_REF");
         });
 
         modelBuilder.Entity<MASTERDATA_STATUS>(entity =>
         {
             entity.Property(e => e.ID).HasDefaultValueSql("SYS_GUID() ");
             entity.Property(e => e.CREATED_AT).HasDefaultValueSql("SYSTIMESTAMP");
+
+            entity.HasOne(d => d.MASTERDATA_FKNavigation).WithMany(p => p.MASTERDATA_STATUS)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_MDS_MASTERDATA");
         });
 
         modelBuilder.Entity<MASTERDATA_SYSTEM>(entity =>
@@ -563,12 +612,13 @@ public partial class DBContext : DbContext
             entity.Property(e => e.ISIDEAS).IsFixedLength();
             entity.Property(e => e.ISOBC).IsFixedLength();
             entity.Property(e => e.ISPRESCREENED).HasDefaultValueSql("0");
+            entity.Property(e => e.ISRECONTEST).HasDefaultValueSql("0").HasComment("0");
             entity.Property(e => e.ISROBOTIC).IsFixedLength();
             entity.Property(e => e.ISSCORE).IsFixedLength();
             entity.Property(e => e.ISSLIK);
             entity.Property(e => e.ISSMDIGIDECISION).IsFixedLength();
             entity.Property(e => e.ISTNMSTSCORE).IsFixedLength();
-            entity.Property(e => e.ISURGENT).IsFixedLength();
+            entity.Property(e => e.ISURGENT).HasDefaultValueSql("'N'").IsFixedLength();
             entity.Property(e => e.ISVERCHECK);
             entity.Property(e => e.JENISAPLIKASI).IsFixedLength();
             entity.Property(e => e.KORESPONDENREQ);
@@ -597,6 +647,11 @@ public partial class DBContext : DbContext
         });
 
         modelBuilder.Entity<OPERATOR_USER>(entity =>
+        {
+            entity.Property(e => e.ID).ValueGeneratedNever();
+        });
+
+        modelBuilder.Entity<ORG_NEW>(entity =>
         {
             entity.Property(e => e.ID).ValueGeneratedNever();
         });
@@ -690,9 +745,21 @@ public partial class DBContext : DbContext
             entity.HasKey(e => e.ID).HasName("PK_RF_DECLINEPREFIXCODE");
         });
 
+        modelBuilder.Entity<RF_FLAG>(entity =>
+        {
+            entity.Property(e => e.CREATED_AT).HasDefaultValueSql("SYSDATE");
+            entity.Property(e => e.IS_ACTIVE).HasDefaultValueSql("1 ");
+        });
+
         modelBuilder.Entity<RF_HUB_STATUS_MAPPING>(entity =>
         {
             entity.Property(e => e.CREATED_AT).HasDefaultValueSql("CURRENT_TIMESTAMP");
+        });
+
+        modelBuilder.Entity<RF_JENIS_KARTU>(entity =>
+        {
+            entity.Property(e => e.CREATED_AT).HasDefaultValueSql("SYSDATE");
+            entity.Property(e => e.IS_ACTIVE).HasDefaultValueSql("1 ");
         });
 
         modelBuilder.Entity<RF_JENIS_PRODUK>(entity =>
@@ -714,6 +781,7 @@ public partial class DBContext : DbContext
         {
             entity.HasKey(e => e.ID).HasName("SYS_C009883");
 
+            entity.Property(e => e.ADDITIONAL_FIELD_REQUIRED).HasDefaultValueSql("0");
             entity.Property(e => e.CREATED_AT).HasDefaultValueSql("SYSTIMESTAMP ");
             entity.Property(e => e.IS_ACTIVE).HasDefaultValueSql("1 ");
             entity.Property(e => e.IS_REQUIRED).HasDefaultValueSql("1 ");
@@ -776,6 +844,18 @@ public partial class DBContext : DbContext
             entity.HasOne(d => d.SECTION).WithMany(p => p.RF_SUB_SECTION)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_SUBSECTION_SECTION");
+        });
+
+        modelBuilder.Entity<RF_SUB_SECTION_CONDITION>(entity =>
+        {
+            entity.HasKey(e => e.ID).HasName("PK_SUB_SECTION_CONDITION");
+
+            entity.Property(e => e.IS_ACTIVE).HasDefaultValueSql("1 ");
+            entity.Property(e => e.OPERATOR_CODE).HasDefaultValueSql("'EQ' ");
+
+            entity.HasOne(d => d.SUB_SECTION).WithMany(p => p.RF_SUB_SECTION_CONDITION)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_SSC_SUB_SECTION");
         });
 
         modelBuilder.Entity<RF_TIERING_MAPPING>(entity =>
@@ -922,6 +1002,9 @@ public partial class DBContext : DbContext
             entity.HasKey(e => e.ID).HasName("SYS_C009591");
 
             entity.Property(e => e.CREATED_AT).HasDefaultValueSql("SYSTIMESTAMP");
+            entity.Property(e => e.IS_UPDATE_PRESCREENED)
+                .HasDefaultValueSql("'N' ")
+                .IsFixedLength();
         });
 
         modelBuilder.Entity<T_DEDUPLICATION_RESULT>(entity =>
@@ -960,10 +1043,13 @@ public partial class DBContext : DbContext
 
         modelBuilder.Entity<T_EMAIL_RECONTEST>(entity =>
         {
-            entity.HasKey(e => e.ID).HasName("T_EMAIL_RECONTEST_PK");
+            entity.HasKey(e => e.ID).HasName("SYS_C0010126");
 
-            entity.Property(e => e.ID).ValueGeneratedNever();
-            entity.Property(e => e.STATUS_EMAIL).HasDefaultValueSql("0");
+            entity.Property(e => e.STATUS_EMAIL).HasDefaultValueSql("0 ");
+
+            entity.HasOne(d => d.MASTERDATA_FKNavigation).WithMany(p => p.T_EMAIL_RECONTEST)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_T_EMAIL_RECONTEST_MASTER_DATA");
         });
 
         modelBuilder.Entity<T_FILDOKUMEN>(entity =>
@@ -999,6 +1085,7 @@ public partial class DBContext : DbContext
             entity.Property(e => e.IS_GENERATE)
                 .HasDefaultValueSql("'N' ")
                 .IsFixedLength();
+            entity.Property(e => e.IS_INSTANT).HasDefaultValueSql("'N' ");
         });
 
         modelBuilder.Entity<T_GENERATE_PTCU_CUSTOMER>(entity =>
@@ -1006,6 +1093,7 @@ public partial class DBContext : DbContext
             entity.Property(e => e.IS_GENERATE)
                 .HasDefaultValueSql("'N' ")
                 .IsFixedLength();
+            entity.Property(e => e.IS_INSTANT).HasDefaultValueSql("'N' ");
         });
 
         modelBuilder.Entity<T_IDEAS_RESULT>(entity =>
@@ -1128,7 +1216,6 @@ public partial class DBContext : DbContext
             entity.Property(e => e.NH_04_EP_PIN_RETRIES_DATE).IsFixedLength();
             entity.Property(e => e.NH_05_1098_FLAG).IsFixedLength();
             entity.Property(e => e.NH_05_DATE_CLOSED).IsFixedLength();
-            entity.Property(e => e.NH_05_DATE_USER1).IsFixedLength();
             entity.Property(e => e.NH_05_DATE_USER2).IsFixedLength();
             entity.Property(e => e.NH_05_ICL_COUNTER).IsFixedLength();
             entity.Property(e => e.NH_05_PIN_CURR_CODE).IsFixedLength();
@@ -1151,7 +1238,6 @@ public partial class DBContext : DbContext
             entity.Property(e => e.NH_07_EMBOSS_REQ_1).IsFixedLength();
             entity.Property(e => e.NH_07_EMBOSS_RET_1).IsFixedLength();
             entity.Property(e => e.NH_07_EMBOSS_RQTYPE_1).IsFixedLength();
-            entity.Property(e => e.NH_07_EMBOSS_TYPE_1).IsFixedLength();
             entity.Property(e => e.NH_08_EMBOSS_ACTION_2).IsFixedLength();
             entity.Property(e => e.NH_08_EMBOSS_NAME_2).IsFixedLength();
             entity.Property(e => e.NH_08_EMBOSS_OUT_2).IsFixedLength();
@@ -1173,7 +1259,6 @@ public partial class DBContext : DbContext
             entity.Property(e => e.NH_10_EMBOSS_RQTYPE_4).IsFixedLength();
             entity.Property(e => e.NH_10_EMBOSS_TYPE_4).IsFixedLength();
             entity.Property(e => e.NH_11_CHECKING_ACCT).IsFixedLength();
-            entity.Property(e => e.NH_11_PHOTO_CODE).IsFixedLength();
             entity.Property(e => e.NH_12_AFFINITY_GROUP).IsFixedLength();
             entity.Property(e => e.NH_12_DELQ_HIST).IsFixedLength();
             entity.Property(e => e.NH_12_OFFLINE_BLOCK).IsFixedLength();
@@ -1276,7 +1361,6 @@ public partial class DBContext : DbContext
             entity.Property(e => e.M_SOURCE_CODE).IsFixedLength();
             entity.Property(e => e.M_TRANS).IsFixedLength();
             entity.Property(e => e.M_TYPE).IsFixedLength();
-            entity.Property(e => e.NC_01_REGULER_CUST).IsFixedLength();
             entity.Property(e => e.NC_06_MBR_SINCE).IsFixedLength();
             entity.Property(e => e.NC_07_CO_BIRTH_DATE).IsFixedLength();
             entity.Property(e => e.NC_07_CO_TAX_ID_FLAG).IsFixedLength();
@@ -1291,7 +1375,6 @@ public partial class DBContext : DbContext
             entity.Property(e => e.NC_16_CRLINE_TEMP_EFF_DTE).IsFixedLength();
             entity.Property(e => e.NC_16_CRLINE_TEMP_EXP_DTE).IsFixedLength();
             entity.Property(e => e.NC_17_ADDL_EXP_DATE).IsFixedLength();
-            entity.Property(e => e.NC_21_SUBMIT_DTE).IsFixedLength();
             entity.Property(e => e.NC_21_USR_DEF2).IsFixedLength();
         });
         modelBuilder.HasSequence("SEQ_T_APPLICATION_FINTECH_LOG");
@@ -1299,12 +1382,11 @@ public partial class DBContext : DbContext
         modelBuilder.HasSequence("SEQUENCE_CARD");
         modelBuilder.HasSequence("SEQUENCE_CARD_COUNTER");
         modelBuilder.HasSequence("SEQUENCE_CARD_HISTORY");
-        modelBuilder.HasSequence("SEQUENCE_CARD_MASTER");
-        modelBuilder.HasSequence("SEQUENCE_CARDS");
+        modelBuilder.HasSequence("SEQUENCE_CARD_MASTER").IncrementsBy(10);
         modelBuilder.HasSequence("SEQUENCE_CC_ACCOUNT");
         modelBuilder.HasSequence("SEQUENCE_CORPORATE_CUSTOMER");
         modelBuilder.HasSequence("SEQUENCE_CUST_NO_COUNTER");
-        modelBuilder.HasSequence("SEQUENCE_CUST_NO_MASTER");
+        modelBuilder.HasSequence("SEQUENCE_CUST_NO_MASTER").IncrementsBy(7);
         modelBuilder.HasSequence("SEQUENCE_CUSTOMERS");
         modelBuilder.HasSequence("SEQUENCE_DECLINECODE");
         modelBuilder.HasSequence("SEQUENCE_EMAILTEMPLATES");
@@ -1332,6 +1414,7 @@ public partial class DBContext : DbContext
         modelBuilder.HasSequence("SEQUENCE_PARAMETERLOGOFIELD");
         modelBuilder.HasSequence("SEQUENCE_RF_DASHBOARD_PERMISSION_MAPPING");
         modelBuilder.HasSequence("SEQUENCE_RF_DECLINEPREFIXCODE");
+        modelBuilder.HasSequence("SEQUENCE_RF_FLAG");
         modelBuilder.HasSequence("SEQUENCE_RF_HUB_STATUS_MAPPING");
         modelBuilder.HasSequence("SEQUENCE_RF_MENUS");
         modelBuilder.HasSequence("SEQUENCE_RF_ROLE_MENU_PERMISSIONS");
